@@ -1,7 +1,7 @@
 ﻿using SingleResponsability;
 
-StudentRepository studentRepository = new();
-studentRepository.Export();
+StudentRepository studentRepository = StudentRepository.Instance;
+StudentReport.Export(studentRepository.GetAll());
 Console.WriteLine("Process completed!");
 
 Console.WriteLine("Press any key to finish...");

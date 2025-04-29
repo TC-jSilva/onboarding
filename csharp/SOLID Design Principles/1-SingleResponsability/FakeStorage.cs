@@ -1,31 +1,30 @@
 using System.Collections.ObjectModel;
 
-namespace SingleResponsability
+namespace SingleResponsability;
+
+public class FakeStorage<T>
 {
-    public class FakeStorage<T>
+    private readonly ObservableCollection<T> _collection;
+
+    public FakeStorage()
     {
-        private ObservableCollection<T> collection;
+        _collection = [];
+    }
 
-        public FakeStorage()
-        {
-            collection = new ObservableCollection<T>();
-        }
+    public T Add(T item)
+    {
+        _collection.Add(item);
+        return item;
+    }
 
-        public T Add(T item)
-        {
-            collection.Add(item);
-            return item;
-        }
+    public T Remove(T item)
+    {
+        _collection.Remove(item);
+        return item;
+    }
 
-        public T Remove(T item)
-        {
-            collection.Remove(item);
-            return item;
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return collection;
-        }
+    public IEnumerable<T> GetAll()
+    {
+        return new ObservableCollection<T>(_collection);
     }
 }
