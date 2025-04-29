@@ -1,25 +1,27 @@
 namespace ToDo
 {
+    /// <summary>
+    /// Available Task Menu Items.
+    /// </summary>
+    public enum MenuItem
+    {
+        Unkown,
+        NewTask,
+        RemoveTask,
+        PerformTasks,
+        Exit
+    }
 
     /// <summary>
     /// This class provides menu options to perform operations over a task.
     /// </summary>
-    internal class TaskMenu
+    public class ConsoleTaskMenu : ITaskMenu
     {
-        internal protected enum MenuItem
-        {
-            Unkown,
-            NewTask,
-            RemoveTask,
-            PerformTasks,
-            Exit
-        }
-
 
         /// <summary>
         /// Write in console available menu options.
         /// </summary>
-        internal static void WriteMenuOptions()
+        public void WriteMenuOptions()
         {
             Console.WriteLine("Enter the option to perform: ");
             Console.WriteLine("1. New task");
@@ -32,7 +34,7 @@ namespace ToDo
         /// <summary>
         /// Retrieve a MenuItem from console input.
         /// </summary>
-        internal static MenuItem GetMenuSelection()
+        public MenuItem GetMenuSelection()
         {
             try
             {

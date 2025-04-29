@@ -4,18 +4,21 @@ namespace ToDo
     /// <summary>
     /// Task Manager API implementation using a List as a local container.
     /// </summary>
-    internal class IndexedTaskManager<T> : ITaskManager<T>
+    public class IndexedTaskManager<T> : ITaskManager<T>
     {
         private static readonly string TaskNameOperationMssg = "Task {0} successfully {1}";
         private static readonly string TaskOpAddedMssg = "registered";
         private static readonly string TaskOpDeletedMssg = "deleted";
         private static readonly string TaskOpPerformErrorMssg = "There are no tasks to perform";
 
-        private IList<T> _tasks;
+        private readonly IList<T> _tasks;
 
-        internal IndexedTaskManager()
+        /// <summary>
+        /// Default IndexedTaskManager constructor.
+        /// </summary>
+        public IndexedTaskManager()
         {
-            _tasks = new List<T>();
+            _tasks = [];
         }
 
         /// <summary>
