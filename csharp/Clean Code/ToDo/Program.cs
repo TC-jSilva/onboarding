@@ -1,23 +1,20 @@
-using System.Text.RegularExpressions;
+namespace ToDo;
 
-namespace ToDo
+/// <summary>
+/// Main Program to interact with a Task Manager.
+/// </summary>
+public class Program
 {
 
     /// <summary>
-    /// Main Program to interact with a Task Manager.
+    /// Program entry point.
     /// </summary>
-    public class Program
+    public static void Main(string[] args)
     {
-
-        /// <summary>
-        /// Program entry point.
-        /// </summary>
-        public static void Main(string[] args)
-        {
-            ITaskRunner taskRunner = new ConsoleTaskRunner(new IndexedTaskManager<string>(),
-                new ConsoleTaskMenu());
-            taskRunner.Run();
-        }
-
+        ITaskRunner taskRunner = new ConsoleTaskRunner(new IndexedTaskManager<string>(),
+            new ConsoleTaskMenu());
+        taskRunner.Run();
     }
+
 }
+

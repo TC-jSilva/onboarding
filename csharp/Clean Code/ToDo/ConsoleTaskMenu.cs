@@ -1,52 +1,51 @@
-namespace ToDo
+namespace ToDo;
+
+/// <summary>
+/// Available Task Menu Items.
+/// </summary>
+public enum MenuItem
 {
+    Unkown,
+    NewTask,
+    RemoveTask,
+    PerformTasks,
+    Exit
+}
+
+/// <summary>
+/// This class provides menu options to perform operations over a task.
+/// </summary>
+public class ConsoleTaskMenu : ITaskMenu
+{
+
     /// <summary>
-    /// Available Task Menu Items.
+    /// Write in console available menu options.
     /// </summary>
-    public enum MenuItem
+    public void WriteMenuOptions()
     {
-        Unkown,
-        NewTask,
-        RemoveTask,
-        PerformTasks,
-        Exit
+        Console.WriteLine("Enter the option to perform: ");
+        Console.WriteLine("1. New task");
+        Console.WriteLine("2. Remove task");
+        Console.WriteLine("3. Perform tasks");
+        Console.WriteLine("4. Exit");
     }
 
+
     /// <summary>
-    /// This class provides menu options to perform operations over a task.
+    /// Retrieve a MenuItem from console input.
     /// </summary>
-    public class ConsoleTaskMenu : ITaskMenu
+    public MenuItem GetMenuSelection()
     {
-
-        /// <summary>
-        /// Write in console available menu options.
-        /// </summary>
-        public void WriteMenuOptions()
+        try
         {
-            Console.WriteLine("Enter the option to perform: ");
-            Console.WriteLine("1. New task");
-            Console.WriteLine("2. Remove task");
-            Console.WriteLine("3. Perform tasks");
-            Console.WriteLine("4. Exit");
+            string? selection = Console.ReadLine();
+            // when selection is null, then return Exit
+            return Enum.Parse<MenuItem>(selection ?? MenuItem.Exit.ToString());
         }
-
-
-        /// <summary>
-        /// Retrieve a MenuItem from console input.
-        /// </summary>
-        public MenuItem GetMenuSelection()
+        catch
         {
-            try
-            {
-                string? selection = Console.ReadLine();
-                // when selection is null, then return Exit
-                return Enum.Parse<MenuItem>(selection ?? MenuItem.Exit.ToString());
-            }
-            catch
-            {
-                // Return Exit, when there is an exception at parsing the input
-                return MenuItem.Exit;
-            }
+            // Return Exit, when there is an exception at parsing the input
+            return MenuItem.Exit;
         }
     }
 }
