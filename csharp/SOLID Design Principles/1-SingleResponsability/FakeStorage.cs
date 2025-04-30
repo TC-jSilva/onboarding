@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace SingleResponsability;
 
-public class FakeStorage<T>
+public class FakeStorage<T> where T: IStorable
 {
     private readonly ObservableCollection<T> _collection;
 

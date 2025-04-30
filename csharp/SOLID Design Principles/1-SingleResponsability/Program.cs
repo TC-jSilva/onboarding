@@ -1,7 +1,7 @@
 ﻿using SingleResponsability;
 
-StudentRepository studentRepository = StudentRepository.Instance;
-StudentReport.Export(studentRepository.GetAll());
+IExportable<Student> studentReport = CsvStudentReport.Instance;
+studentReport.Export(StudentRepository.Instance.GetAll());
 Console.WriteLine("Process completed!");
 
 Console.WriteLine("Press any key to finish...");
