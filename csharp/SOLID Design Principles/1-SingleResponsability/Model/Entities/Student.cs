@@ -1,6 +1,6 @@
 namespace SingleResponsability
 {
-    public class Student : IStorable
+    public class Student : IPersistable
     {
         public int Id { get; set; }
         public string Fullname { get; set; }

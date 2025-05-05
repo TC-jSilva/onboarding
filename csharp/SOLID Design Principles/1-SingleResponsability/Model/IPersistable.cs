@@ -1,3 +1,3 @@
 namespace SingleResponsability;
 
-public interface IStorable {}
+public interface IPersistable {}

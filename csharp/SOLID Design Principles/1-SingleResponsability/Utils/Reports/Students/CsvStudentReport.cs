@@ -5,7 +5,7 @@ namespace SingleResponsability;
 /// <summary>
 /// Thread-safe, lazy initialized Singletone utility to export student data to a CSV file.
 /// </summary>
-public sealed class CsvStudentReport : IExportable<Student>
+public sealed class CsvStudentReport : ReportExporter<Student, string, string>
 {
     private static readonly string CsvColumnNames = "Id;Fullname;Grades";
     private static readonly string CsvColumnDelimiter = ";";
@@ -15,7 +15,10 @@ public sealed class CsvStudentReport : IExportable<Student>
     private static readonly Lazy<CsvStudentReport> _instance =
         new(() => new CsvStudentReport());
 
-    private CsvStudentReport() {}
+    private CsvStudentReport()
+    {
+        _writer = new FileWriter();
+    }
 
     public static CsvStudentReport Instance => _instance.Value;
 
@@ -25,7 +28,7 @@ public sealed class CsvStudentReport : IExportable<Student>
     /// <param name="src"></param>
     /// <param name="out data"></param>
     /// <param name="out file"></param>
-    public void BuildData(IEnumerable<Student> src, out string data, out string file)
+    protected override void BuildData(IEnumerable<Student> src, out string data, out string file)
     {
         StringBuilder sb = new();
         sb.AppendLine(CsvColumnNames);

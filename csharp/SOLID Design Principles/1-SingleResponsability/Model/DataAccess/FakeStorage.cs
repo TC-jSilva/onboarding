@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace SingleResponsability;
 
-public class FakeStorage<T> where T: IStorable
+public class FakeStorage<T> where T: IPersistable
 {
     private readonly ObservableCollection<T> _collection;
 
@@ -25,6 +25,12 @@ public class FakeStorage<T> where T: IStorable
 
     public IEnumerable<T> GetAll()
     {
-        return new ObservableCollection<T>(_collection);
+        return _collection;
     }
+
+    public bool Any()
+    {
+        return _collection.Any();
+    }
+
 }
