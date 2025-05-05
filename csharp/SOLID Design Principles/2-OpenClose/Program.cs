@@ -1,34 +1,21 @@
 ﻿using OpenClose;
 
-CalculateSalaryMonthly(new List<object>() {
-    new EmployeeFullTime("Pepito Pérez", 160),
-    new EmployeePartTime("Manuel Lopera", 180)
-});
+CalculateSalaryMonthly([
+    new EmployeeFullTime(fullname:"Pepito Pérez", hoursWorked: 160),
+    new EmployeePartTime(fullname: "Manuel Lopera", hoursWorked: 180)
+]);
 
 
-void CalculateSalaryMonthly(List<object> employees) 
+void CalculateSalaryMonthly(List<Employee> employees)
 {
     foreach (var employee in employees)
     {
-        if (employee is EmployeeFullTime) 
+        Console.Write($"Empleado: {employee.Fullname}");
+        if(employee is IAccountable accountable)
         {
-            decimal hourValue = 30000M;
-            EmployeeFullTime employeeFullTime = ((EmployeeFullTime)employee);
-            decimal salary = hourValue * employeeFullTime.HoursWorked;
-            Console.WriteLine($"Empleado: {employeeFullTime.Fullname}, Pago: {salary:C1} ");
+            Console.Write($", Pago: {accountable.CalculateSalary():C1} ");
         }
-        else 
-        {
-            decimal hourValue = 20000M;
-            EmployeePartTime employeePartTime = ((EmployeePartTime)employee);
-            decimal salary = hourValue * employeePartTime.HoursWorked;
-            if (employeePartTime.HoursWorked > 160) {
-                decimal effortCompensation = 5000M;
-                int extraDays = employeePartTime.HoursWorked - 160;
-                salary += effortCompensation * extraDays;
-            }
-            Console.WriteLine($"Empleado: {employeePartTime.Fullname}, Pago: {salary:C1} ");
-        }
+        Console.WriteLine();
     }
 
     Console.WriteLine("Press any key to finish...");
