@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenClose
 {
-    public sealed class EmployeePartTime : Employee
+    public sealed class EmployeePartTime : Employee, IAccountable
     {
         private static readonly int _HoursWorkedLimit = 160;
         private static readonly decimal _EffortCompensation = 5000M;
@@ -15,7 +15,7 @@ namespace OpenClose
             HourValue = Employee.HourValue_PartTime;
         }
 
-        public override decimal CalculateSalary()
+        public decimal CalculateSalary()
         {
             decimal salary = HourValue * HoursWorked;
             if (HoursWorked > _HoursWorkedLimit) {

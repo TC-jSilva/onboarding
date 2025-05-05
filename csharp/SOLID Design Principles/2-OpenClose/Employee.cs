@@ -9,6 +9,4 @@ public abstract class Employee
     public required decimal HourValue { get; set; }
     public int HoursWorked { get; set; }
 
-    public abstract decimal CalculateSalary();
-
 }

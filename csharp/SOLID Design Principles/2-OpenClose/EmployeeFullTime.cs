@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenClose
 {
-    public sealed class EmployeeFullTime : Employee
+    public sealed class EmployeeFullTime : Employee, IAccountable
     {
         [SetsRequiredMembers]
         public EmployeeFullTime(string fullname, int hoursWorked)
@@ -12,7 +12,7 @@ namespace OpenClose
             HoursWorked = hoursWorked;
         }
 
-        public override decimal CalculateSalary()
+        public decimal CalculateSalary()
         {
             return HourValue * HoursWorked;
         }
