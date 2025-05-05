@@ -1,9 +1,17 @@
-namespace Liskov
+namespace LiskovSubstitution;
+
+public class EmployeeFullTime : Employee
 {
-    public class EmployeeFullTime : Employee
+    protected new readonly decimal HourValue = 60;
+
+    public int ExtraHours { get; set; }
+    public EmployeeFullTime(string fullname, int hoursWorked, int extraHours) : base(fullname, hoursWorked)
     {
-        public EmployeeFullTime(string fullname, int hoursWorked, int extrahours) : base(fullname, hoursWorked, extrahours)
-        {
-        }
+        ExtraHours = extraHours;
+    }
+
+    public override decimal CalculateSalary()
+    {
+        return HourValue * (HoursWorked + ExtraHours);
     }
 }

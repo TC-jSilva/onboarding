@@ -1,21 +1,11 @@
-namespace Liskov
+namespace LiskovSubstitution;
+
+public abstract class Employee(string fullname, int hoursWorked)
 {
-    public abstract class Employee
-    {
-        public string Fullname { get; set; }
-        public int HoursWorked { get; set; }
-        public int ExtraHours {get;set;}
+    protected readonly decimal HourValue;
 
-        public  Employee(string fullname, int hoursWorked, int ExtraHours)
-        {
-            Fullname = fullname;
-            HoursWorked = hoursWorked;
-        }  
+    public string Fullname { get; set; } = fullname;
+    public int HoursWorked { get; set; } = hoursWorked;
 
-        public virtual decimal CalculateSalary (bool IsFullTime)
-        {   
-            decimal hourValue = IsFullTime ? 50 : 40;
-            return hourValue * (HoursWorked + ExtraHours);
-        } 
-    }
+    public abstract decimal CalculateSalary();
 }
