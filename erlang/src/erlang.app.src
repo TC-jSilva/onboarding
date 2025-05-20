@@ -1,0 +1,14 @@
+{application, erlang,
+ [
+  {description, "Erlang REST API"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {erlang_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    cowboy,
+    eredis
+   ]},
+  {env, []}
+ ]}.

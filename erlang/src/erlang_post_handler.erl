@@ -1,4 +1,5 @@
 -module(erlang_post_handler).
+-behaviour(cowboy_handler).
 
 -include("../include/records.hrl").
 
@@ -20,14 +21,18 @@ from_json(Req, State) ->
     {ok, Body, Req2} = cowboy_req:read_body(Req),
     case role_json:json_to_role(Body) of
         {ok, Role} ->
-            roles_store:insert_role(Role),
-            Req3 = cowboy_req:reply(201, #{
-                <<"content-type">> => <<"application/json">>
-            }, json:encode(#{<<"message">> => <<"Role created successfully">>}), Req2),
-            {true, Req3, State};
-        _ ->
-            Req3 = cowboy_req:reply(400, #{
-                <<"content-type">> => <<"application/json">>
-            }, json:encode(#{<<"error">> => <<"Failed to create role">>}), Req2),
-            {false, Req3, State}
+            case roles_store:insert_role(Role) of
+                {ok, Id} ->
+                    Req3 = cowboy_req:reply(201, #{<<"content-type">> => <<"application/json">>},
+                        json:encode(#{id => Id, message => <<"Role created successfully">>}), Req2),
+                    {ok, Req3, State};
+                {error, Reason} ->
+                    Req3 = cowboy_req:reply(500, #{<<"content-type">> => <<"application/json">>},
+                        json:encode(#{error => Reason}), Req2),
+                    {ok, Req3, State}
+            end;
+        {error, Reason} ->
+            Req3 = cowboy_req:reply(400, #{<<"content-type">> => <<"application/json">>},
+                json:encode(#{error => Reason}), Req2),
+            {ok, Req3, State}
     end.

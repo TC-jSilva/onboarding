@@ -5,8 +5,10 @@
 -include("../include/records.hrl").
 
 %% Convert a single role record to a map
-role_to_map({_Id, Role}) ->
-    Map = #{<<"event_type">> => Role#role.event_type,
+role_to_map({Id, Role}) ->
+    Map = #{
+        <<"id">> => Id,
+        <<"event_type">> => Role#role.event_type,
         <<"data">> => #{
             <<"first_name">> => Role#role.data#data.first_name,
             <<"gender">> => Role#role.data#data.gender,
@@ -18,9 +20,13 @@ role_to_map({_Id, Role}) ->
     Map.
 
 %% Convert a list of role records to JSON
-roles_to_json(Roles) ->
-    JsonRoles = lists:map(fun role_to_map/1, Roles),
-    json:encode(JsonRoles).
+roles_to_json(Roles) when is_list(Roles) ->
+    case Roles of
+        [] -> json:encode([]);
+        _ ->
+            JsonRoles = lists:map(fun role_to_map/1, Roles),
+            json:encode(JsonRoles)
+    end.
 
 %% Convert JSON to a role record
 json_to_role(Json) ->
