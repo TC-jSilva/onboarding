@@ -11,7 +11,8 @@ start(_StartType, _StartArgs) ->
             Dispatch =
                 cowboy_router:compile([{'_',
                                         [{"/staff/roles", erlang_get_handler, []},
-                                         {"/staff/roles/create", erlang_post_handler, []}]}]),
+                                         {"/staff/roles/create", erlang_post_handler, []},
+                                         {"/staff/roles/:id", roles_rest_handler, []}]}]),
             {ok, _} =
                 cowboy:start_clear(roles_rest_listener,
         [{port, 8080}],

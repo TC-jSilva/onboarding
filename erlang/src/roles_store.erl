@@ -85,6 +85,86 @@ handle_call({insert_role, Role}, _From, State) ->
             {reply, {error, Reason}, State}
     end;
 
+handle_call({get_role, Id}, _From, State) ->
+    RoleKey = <<"role:", (integer_to_binary(Id))/binary>>,
+    case redis_client:get(RoleKey) of
+        {ok, undefined} ->
+            {reply, {error, not_found}, State};
+        {ok, RoleBin} ->
+            try
+                Role = binary_to_term(RoleBin),
+                {reply, {ok, Role}, State}
+            catch
+                _:_ ->
+                    io:format("Error parsing role data for key: ~p~n", [RoleKey]),
+                    {reply, {error, invalid_data}, State}
+            end;
+        {error, Reason} ->
+            io:format("Error getting role: ~p~n", [Reason]),
+            {reply, {error, Reason}, State}
+    end;
+
+handle_call({delete_role, Id}, _From, State) ->
+    RoleKey = <<"role:", (integer_to_binary(Id))/binary>>,
+    case redis_client:get("roles:keys") of
+        {ok, undefined} ->
+            {reply, {error, not_found}, State};
+        {ok, Keys} ->
+            KeyList = binary:split(Keys, <<",">>, [global]),
+            case lists:member(RoleKey, KeyList) of
+                true ->
+                    % Remove the role key from the list
+                    NewKeys = lists:filter(fun(K) -> K =/= RoleKey end, KeyList),
+                    NewKeysBin = case NewKeys of
+                        [] -> <<>>;
+                        _ -> binary:list_to_bin(lists:join(<<",">>, NewKeys))
+                    end,
+                    % Delete the role and update keys list
+                    case redis_client:delete(RoleKey) of
+                        {ok, _} ->
+                            case redis_client:set("roles:keys", NewKeysBin) of
+                                {ok, <<"OK">>} ->
+                                    {reply, ok, State};
+                                {error, Reason} ->
+                                    io:format("Error updating keys list: ~p~n", [Reason]),
+                                    {reply, {error, Reason}, State}
+                            end;
+                        {error, Reason} ->
+                            io:format("Error deleting role: ~p~n", [Reason]),
+                            {reply, {error, Reason}, State}
+                    end;
+                false ->
+                    {reply, {error, not_found}, State}
+            end;
+        {error, Reason} ->
+            io:format("Error getting keys list: ~p~n", [Reason]),
+            {reply, {error, Reason}, State}
+    end;
+
+handle_call({update_role, Id, Role}, _From, State) ->
+    RoleKey = <<"role:", (integer_to_binary(Id))/binary>>,
+    case redis_client:get("roles:keys") of
+        {ok, undefined} ->
+            {reply, {error, not_found}, State};
+        {ok, Keys} ->
+            KeyList = binary:split(Keys, <<",">>, [global]),
+            case lists:member(RoleKey, KeyList) of
+                true ->
+                    case redis_client:set(RoleKey, term_to_binary(Role)) of
+                        {ok, <<"OK">>} ->
+                            {reply, ok, State};
+                        {error, Reason} ->
+                            io:format("Error updating role: ~p~n", [Reason]),
+                            {reply, {error, Reason}, State}
+                    end;
+                false ->
+                    {reply, {error, not_found}, State}
+            end;
+        {error, Reason} ->
+            io:format("Error getting keys list: ~p~n", [Reason]),
+            {reply, {error, Reason}, State}
+    end;
+
 handle_call(_Msg, _From, State) ->
     {reply, {error, unknown_call}, State}.
 
