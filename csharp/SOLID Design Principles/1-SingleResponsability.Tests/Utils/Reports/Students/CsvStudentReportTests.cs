@@ -1,6 +1,4 @@
-using System.Collections.ObjectModel;
-
-namespace SingleResponsability.Tests;
+namespace SingleResponsability;
 
 public class CsvStudentReportTests
 {
@@ -8,14 +6,17 @@ public class CsvStudentReportTests
     [Fact]
     public void BuildData_NotEmptyCollection()
     {
-        CsvStudentReport.Instance.Export(StudentRepository.Instance.GetAll());
+        IList<Student> students = [
+        new Student(1, "Pepito Pérez", [3, 4.5]),
+        new Student(2, "Mariana Lopera", [4, 5]),
+        new Student(3, "José Molina", [2, 3])];
+        CsvStudentReport.Instance.Export(students);
     }
 
     [Fact]
     public void BuildData_EmptyCollection()
     {
-        ObservableCollection<Student> emptyCollection = [];
-        CsvStudentReport.Instance.Export(emptyCollection);
+        CsvStudentReport.Instance.Export([]);
     }
 
 }

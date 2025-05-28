@@ -1,4 +1,4 @@
-﻿namespace SingleResponsability.Tests;
+﻿namespace SingleResponsability;
 
 public class StudentRepositoryTests
 {
