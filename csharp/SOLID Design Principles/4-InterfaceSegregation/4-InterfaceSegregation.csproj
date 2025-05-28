@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>_4_InterfaceSegregation</RootNamespace>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>InterfaceSegregation</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
