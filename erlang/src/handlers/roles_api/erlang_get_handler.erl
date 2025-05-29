@@ -1,7 +1,7 @@
 -module(erlang_get_handler).
 -behaviour(cowboy_handler).
 
--include("../include/records.hrl").
+-include_lib("erlang/include/records.hrl").
 
 -export([init/2]).
 -export([content_types_provided/2]).

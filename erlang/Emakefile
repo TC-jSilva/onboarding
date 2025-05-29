@@ -1,0 +1,73 @@
+{"src/*", [
+    debug_info,
+    {i, "include"},
+    {i, "src"},
+    warn_unused_vars,
+    warn_export_all,
+    warn_shadow_vars,
+    warn_unused_import,
+    warn_unused_function,
+    warn_bif_clash,
+    warn_unused_record,
+    warn_deprecated_function,
+    warn_obsolete_guard,
+    strict_validation,
+    report,
+    {outdir, "_build/default/lib/erlang/ebin"}
+]}.
+
+{"src/*/*", [
+    debug_info,
+    {i, "include"},
+    {i, "src"},
+    warn_unused_vars,
+    warn_export_all,
+    warn_shadow_vars,
+    warn_unused_import,
+    warn_unused_function,
+    warn_bif_clash,
+    warn_unused_record,
+    warn_deprecated_function,
+    warn_obsolete_guard,
+    strict_validation,
+    report,
+    {outdir, "_build/default/lib/erlang/ebin"}
+]}.
+
+{"test/*", [
+    debug_info,
+    {i, "include"},
+    {i, "src"},
+    {i, "test"},
+    warn_unused_vars,
+    warn_export_all,
+    warn_shadow_vars,
+    warn_unused_import,
+    warn_unused_function,
+    warn_bif_clash,
+    warn_unused_record,
+    warn_deprecated_function,
+    warn_obsolete_guard,
+    strict_validation,
+    report,
+    {outdir, "_build/test/lib/erlang/ebin"}
+]}.
+
+{"test/*/*", [
+    debug_info,
+    {i, "include"},
+    {i, "src"},
+    {i, "test"},
+    warn_unused_vars,
+    warn_export_all,
+    warn_shadow_vars,
+    warn_unused_import,
+    warn_unused_function,
+    warn_bif_clash,
+    warn_unused_record,
+    warn_deprecated_function,
+    warn_obsolete_guard,
+    strict_validation,
+    report,
+    {outdir, "_build/test/lib/erlang/ebin"}
+]}.

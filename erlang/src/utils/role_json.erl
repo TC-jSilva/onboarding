@@ -2,7 +2,7 @@
 
 -export([roles_to_json/1, json_to_role/1]).
 
--include("../include/records.hrl").
+-include_lib("erlang/include/records.hrl").
 
 %% Convert a single role record to a map
 role_to_map({Id, Role}) ->

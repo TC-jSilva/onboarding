@@ -5,7 +5,7 @@
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 -export([insert_role/1, get_all_roles/0, delete_role/1, update_role/2, get_role/1]).
 
--include("../include/records.hrl").
+-include_lib("erlang/include/records.hrl").
 
 -record(state, {}).
 

@@ -3,7 +3,7 @@
 
 -export([init/2]).
 
--include("../include/records.hrl").
+-include_lib("erlang/include/records.hrl").
 
 init(Req0, State) ->
     Method = cowboy_req:method(Req0),
