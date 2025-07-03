@@ -351,3 +351,35 @@ MigrationBackup/
 
 # VSCode working folder
 .vscode/*
+
+*.iml
+*.orig
+*.crashdump
+*.tool-versions
+.idea
+*.so
+*.beam
+modules/ebin
+/xmpp_builder/
+*.DS_Store
+*~
+*.o
+*.P
+ttserver/deps
+ttserver/apps/ttserver/.eunit
+ttserver/apps/ttserver/ctest/*/logs/*
+npm-debug.log
+node_timer_service
+tt_logger
+node_modules
+_build/
+_rel/
+dump.rdb
+erlang_ls.config
+.vscode
+.*.mk/
+*.d
+*.mk
+config/
+deps/
+ebin/

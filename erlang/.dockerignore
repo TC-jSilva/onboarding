@@ -1,0 +1,10 @@
+_build/
+.git/
+.gitignore
+*.beam
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+*.log
